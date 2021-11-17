@@ -12,7 +12,7 @@ PWFusion_MAX31855_TC  thermocouple0(CS0_PIN);
 void setup()
 {
   
-  Serial.begin(115200);
+  Serial.begin(9600);
   SPI.begin();                        // begin SPI
   SPI.setDataMode(SPI_MODE1);         // MAX31865 is a Mode 1 device
   pinMode(CS0_PIN, OUTPUT);  // initalize the chip select pin
