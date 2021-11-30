@@ -53,7 +53,12 @@ void loop() {
   FanCount++;
   Serial.println(FanCount);
  }
-if FanCount
+if (FanCount % 2 == 1) {
+  digitalWrite(Fan_Relay, HIGH);
+}
+else if (FanCount % 2 == 0){
+  digitalWrite(Fan_Relay, LOW);
+}
  
   //digitalWrite(PWR_Relay, HIGH);   // turn the LED on (HIGH is the voltage level)
   //delay(100);                       // wait for a second
