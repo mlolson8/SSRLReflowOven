@@ -7,7 +7,8 @@ int pinC = 4; // Connected to SW on KY-040
 int encoderPosCount = 0;
 int pinALast;
 int aVal;
-bool cVal;
+bool cVal = 1;
+bool cVal_old = 1;
 boolean bCW;
 int FanCount=0;
 int OvenCount=0;
@@ -17,53 +18,56 @@ void setup() {
   pinMode(Fan_Relay,OUTPUT);
   pinMode (pinA,INPUT);
   pinMode (pinB,INPUT);
+  pinMode (pinC,INPUT);
   pinALast = digitalRead(pinA);
   Serial.begin (9600);
 }
 
 void loop() {
-  aVal = digitalRead(pinA);
- if (aVal != pinALast){ // Means the knob is rotating
+  //Rotary Encoder Controls
+aVal = digitalRead(pinA);
+if (aVal != pinALast){ // Means the knob is rotating
  // if the knob is rotating, we need to determine direction
  // We do that by reading pin B.
-  if (digitalRead(pinB) != aVal) { // Means pin A Changed first - We're Rotating Clockwise
-    encoderPosCount ++;
-    bCW = true;
-    }
-  else {// Otherwise B changed first and we're moving CCW
-  bCW = false;
-  encoderPosCount--;
-  }
- Serial.print ("Rotated: ");
-  if (bCW){
-    Serial.println ("clockwise");
-    //Clockwise Rotation Case
-  }
-  else{
-    Serial.println("counterclockwise");
-    //Counter Clockwise Rotation Case
-    }
-  Serial.print("Encoder Position: ");
-  Serial.println(encoderPosCount);
- }
- pinALast = aVal;
- //cVal=0;
+if (digitalRead(pinB) != aVal) { // Means pin A Changed first - We're Rotating Clockwise
+encoderPosCount ++;
+bCW = true;
+}
+else {// Otherwise B changed first and we're moving CCW
+bCW = false;
+encoderPosCount--;
+}
+Serial.print ("Rotated: ");
+if (bCW){
+Serial.println ("clockwise"); //Clockwise Rotation Case
+}
+else{
+Serial.println("counterclockwise");
+//Counter Clockwise Rotation Case
+}
+Serial.print("Encoder Position: ");
+Serial.println(encoderPosCount);
+}
+pinALast = aVal;
+ 
+//Push Button Controls
+ cVal_old = cVal;
+ delay(1);
  cVal = digitalRead(pinC);
- if(cVal == 0){
-  Serial.println("Fan On");
-  delay(500);
+if((cVal != cVal_old) && (cVal == 1)){
+  Serial.println("Button pushed");
+  //delay(500);
   FanCount++;
   Serial.println(FanCount);
  }
 if (FanCount % 2 == 1) {
+  Serial.println("Fan ON");
+  digitalWrite(PWR_Relay, HIGH);
   digitalWrite(Fan_Relay, HIGH);
 }
 else if (FanCount % 2 == 0){
+  Serial.println("Fan OFF");
+  digitalWrite(PWR_Relay, LOW);
   digitalWrite(Fan_Relay, LOW);
 }
- 
-  //digitalWrite(PWR_Relay, HIGH);   // turn the LED on (HIGH is the voltage level)
-  //delay(100);                       // wait for a second
-  //digitalWrite(PWR_Relay, LOW);    // turn the LED off by making the voltage LOW
-  //delay(100);                       // wait for a second
 }
