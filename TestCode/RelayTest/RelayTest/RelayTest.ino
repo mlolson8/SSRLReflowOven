@@ -37,9 +37,11 @@ void loop() {
  Serial.print ("Rotated: ");
   if (bCW){
     Serial.println ("clockwise");
+    //Clockwise Rotation Case
   }
   else{
     Serial.println("counterclockwise");
+    //Counter Clockwise Rotation Case
     }
   Serial.print("Encoder Position: ");
   Serial.println(encoderPosCount);
