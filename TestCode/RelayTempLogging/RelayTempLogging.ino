@@ -21,6 +21,10 @@ PWFusion_MAX31855_TC  thermocouple0(CS0_PIN);
 unsigned long previousMillis = 0;
 const long SampleInterval = 500;
 
+float DutyCycle_percent = .25; //PWM Duty Cycle Percentage from 0-1
+int DutyCycle = DutyCycle_percent*255;
+
+
 
 void setup()
 {
@@ -77,17 +81,17 @@ void loop()
    }
   if (FanCount % 3 == 0) {
     //Serial.println("Fan OFF;Heat OFF");
-    digitalWrite(PWR_Relay, LOW);
+    analogWrite(PWR_Relay, 0);
     digitalWrite(Fan_Relay, LOW);
   }
   else if (FanCount % 3 == 1){
     //Serial.println("Fan ON;Heat ON");
-    digitalWrite(PWR_Relay, HIGH);
+    analogWrite(PWR_Relay, DutyCycle);
     digitalWrite(Fan_Relay, HIGH);
   }
    else if (FanCount % 3 == 2){
     //Serial.println("Fan ON;Heat OFF");
-    digitalWrite(PWR_Relay, LOW);
+    analogWrite(PWR_Relay, 0);
     digitalWrite(Fan_Relay, HIGH);
   }
 }
