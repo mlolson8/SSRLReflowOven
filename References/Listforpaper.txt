@@ -1,0 +1,11 @@
+References:
+
+https://en.wikipedia.org/wiki/Reflow_soldering
+
+
+https://vannevar.ece.uw.edu/techsite/papers/documents/UWEETR-2006-0010.pdf (THIS ONE IN PARTICULAR)
+https://circuitmaker.com/Projects/Details/StefanLuethi/Toaster-Oven-Controller
+https://circuitdigest.com/microcontroller-projects/arduino-pid-temperature-controller
+https://learn.adafruit.com/ez-make-oven/the-toaster-oven
+https://www.whizoo.com/reflowoven
+https://hackaday.com/2019/03/10/diy-reflow-oven-is-heavily-documented/
